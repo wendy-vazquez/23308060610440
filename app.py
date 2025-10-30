@@ -33,9 +33,11 @@ def formulario():
 
     return render_template('formulario.html', alimentos=session['alimentos_clasificados'])
 
-@app.route('/result')
-def resultado():
-    return render_template('resultado.html')
+@app.route('/limpiar_lista', methods=['POST'])
+def limpiar_lista():
+    session['alimentos_clasificados'] = []
+    session.modified = True
+    return redirect('/form')
 
 if __name__ == '__main__':
     app.run(debug=True)
