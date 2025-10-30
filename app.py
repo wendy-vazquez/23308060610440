@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template, session
+from flask import Flask, request, render_template, session, redirect
 
 app = Flask(__name__)
-app.secret_key = 'clave_secret _y_muy_larga'
+app.secret_key = 'clave_secreta_y_muy_larga'
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    return redirect('/form')
 
 @app.route('/form', methods=['GET', 'POST'])
 def formulario():
@@ -21,13 +21,17 @@ def formulario():
         g_cal = grasas * 9
         p_cal = proteinas * 4
         c_cal = carbohidratos * 4
-        total = g_cal + p_cal + c_cal
 
-        tipo = max({'Grasas': g_cal, 'Proteínas': p_cal, 'Carbohidratos': c_cal}, key=lambda x: {'Grasas': g_cal, 'Proteínas': p_cal, 'Carbohidratos': c_cal}[x])
+        tipo = max(
+            {'Grasas': g_cal, 'Proteínas': p_cal, 'Carbohidratos': c_cal},
+            key=lambda x: {'Grasas': g_cal, 'Proteínas': p_cal, 'Carbohidratos': c_cal}[x]
+        )
         resultado = f'Fuente de {tipo}'
 
         session['alimentos_clasificados'].append({'nombre': nombre, 'clasificacion': resultado})
-    return render_template('formulario.html')
+        session.modified = True  # Necesario para que Flask registre el cambio en la sesión
+
+    return render_template('formulario.html', alimentos=session['alimentos_clasificados'])
 
 @app.route('/result')
 def resultado():
