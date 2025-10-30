@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session
 
 app = Flask(__name__)
+app.secret_key = 'clave_secret _y_muy_larga'
 
 @app.route('/')
 def index():
@@ -13,8 +14,8 @@ def formulario():
 
     if request.method == 'POST':
         nombre = request.form.get('nombre')
-        grasas = float(request.form.get('grasas', 0))
-        proteinas = float(request.form.get('proteinas', 0))
+        grasas = float(request.form.get('grasas'))
+        proteinas = float(request.form.get('proteinas'))
         carbohidratos = float(request.form.get('carbohidratos', 0))
 
         g_cal = grasas * 9

@@ -5,7 +5,6 @@
         Clasificación de Alimentos según su Composición Nutricional
     </h2>
     
-    <div class="card p-4 mb-4 d-flex justify-content-center" style="background-color: #ffe4f1;">
     <form method="POST" class="row mb-4">
         <div class="col-md-4 mb-2">
             <input type="text" name="nombre" class="form-control" placeholder="Nombre del alimento" required>
@@ -23,8 +22,7 @@
             <button type="submit" class="btn btn-primary w-100">Clasificar</button>
         </div>
     </form>
-    </div>
-    
+
     {% if alimentos %}
     <h4>Alimentos Clasificados</h4>
     <table class="table table-bordered">
