@@ -1,10 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Formulario de Registro</h2>
-  <form method="post">
+    <h2 class="mb-4">
+        Clasificación de Alimentos según su Composición Nutricional
+    </h2>
     
-    <button type="submit">Enviar</button>
-  </form>
+    <div class="card p-4 mb-4 d-flex justify-content-center" style="background-color: #ffe4f1;">
+    <form method="POST" class="row mb-4">
+        <div class="col-md-4 mb-2">
+            <input type="text" name="nombre" class="form-control" placeholder="Nombre del alimento" required>
+        </div>
+        <div class="col-md-2 mb-2">
+            <input type="number" name="grasas" step="0.1" class="form-control" placeholder="Grasas (g)" required>
+        </div>
+        <div class="col-md-2 mb-2">
+            <input type="number" name="proteinas" step="0.1" class="form-control" placeholder="Proteínas (g)" required>
+        </div>
+        <div class="col-md-2 mb-2">
+            <input type="number" name="carbohidratos" step="0.1" class="form-control" placeholder="Carbohidratos (g)" required>
+        </div>
+        <div class="col-md-2 mb-2">
+            <button type="submit" class="btn btn-primary w-100">Clasificar</button>
+        </div>
+    </form>
+    </div>
+    
+    {% if alimentos %}
+    <h4>Alimentos Clasificados</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Alimento</th>
+                <th>Clasificación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in alimentos %}
+            <tr>
+                <td>{{ a.nombre }}</td>
+                <td>{{ a.clasificacion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-muted">No hay alimentos clasificados aún.</p>
+    {% endif %}
 
 {% endblock %}
